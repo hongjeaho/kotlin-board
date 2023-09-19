@@ -42,7 +42,7 @@ class DatabaseConfig {
 
   @Bean
   @Qualifier(CUSTOM_DOMAIN_DATA_SOURCE)
-  @ConfigurationProperties("graphql.domain.datasource")
+  @ConfigurationProperties("board.domain.datasource")
   fun customDomainDataSource(): HikariDataSource =
     DataSourceBuilder.create().type(HikariDataSource::class.java).build()
 

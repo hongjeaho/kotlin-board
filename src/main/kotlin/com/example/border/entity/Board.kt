@@ -12,6 +12,4 @@ class Board(
   createdBy:String
 ) : BaseEntity(
   createdBy
-) {
-  @Id val uuid:String = UUID.randomUUID().toString()
-}
+)
