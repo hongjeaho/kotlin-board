@@ -6,13 +6,13 @@ import java.time.LocalDateTime
 import java.util.*
 
 abstract class BaseEntity(
-  val createdBy:String
+  val createdBy: String,
 ) {
   @Id
-  var uuid:String = UUID.randomUUID().toString()
+  var uuid: String = UUID.randomUUID().toString()
     protected set
 
-  @Version var version:Int = 0
+  @Version var version: Int = 0
     protected set
 
   var createdTime: LocalDateTime = LocalDateTime.now()
@@ -20,6 +20,6 @@ abstract class BaseEntity(
 
   var updatedTime: LocalDateTime? = null
     protected set
-  var updatedBy:String? = null
+  var updatedBy: String? = null
     protected set
 }

@@ -4,9 +4,9 @@ import org.springframework.web.bind.annotation.RequestParam
 
 data class BoardSearchRequest(
   @RequestParam
-  val title:String,
+  val title: String,
   @RequestParam
-  val content:String,
+  val content: String,
   @RequestParam
-  val createdBy:String,
+  val createdBy: String,
 )
