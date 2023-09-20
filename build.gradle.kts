@@ -23,7 +23,9 @@ group = "com.hong"
 version = "0.0.1-SNAPSHOT"
 
 val kotestVersion by extra("5.6.2")
-
+val mapStructVersion by extra(
+    "1.5.2.Final"
+)
 java {
     sourceCompatibility = JavaVersion.VERSION_17
 }
@@ -39,6 +41,10 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
+    implementation("org.mapstruct:mapstruct:$mapStructVersion")
+    kapt("org.mapstruct:mapstruct-processor:$mapStructVersion")
+    kaptTest("org.mapstruct:mapstruct-processor:$mapStructVersion")
+
     runtimeOnly("com.mysql:mysql-connector-j")
     implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
     kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
@@ -53,7 +59,7 @@ dependencies {
 
     testImplementation("org.flywaydb:flyway-mysql:9.22.0")
     testImplementation("org.flywaydb:flyway-core")
-    testImplementation( "org.testcontainers:mysql:1.16.0")
+    testImplementation("org.testcontainers:mysql:1.16.0")
     testImplementation("io.kotest.extensions:kotest-extensions-testcontainers:2.0.2")
 }
 
@@ -66,6 +72,36 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+val testIntegration: SourceSet by sourceSets.creating {
+    compileClasspath += sourceSets.main.get().output
+    runtimeClasspath += sourceSets.main.get().output
+}
+
+configurations {
+    testIntegration.implementationConfigurationName {
+        extendsFrom(configurations.testImplementation.get())
+    }
+
+    testIntegration.runtimeOnlyConfigurationName {
+        extendsFrom(configurations.testRuntimeOnly.get())
+    }
+}
+
+val testIntegrationTask = tasks.register<Test>("testIntegration") {
+    description = "Runs integration tests."
+    group = "verification"
+    useJUnitPlatform()
+
+    testClassesDirs = testIntegration.output.classesDirs
+    classpath = testIntegration.runtimeClasspath
+
+    shouldRunAfter(tasks.test)
+}
+
+tasks.check {
+    dependsOn(testIntegrationTask)
 }
 
 flyway {
