@@ -19,11 +19,6 @@ object ProjectConfig : AbstractProjectConfig() {
   override val failOnIgnoredTests = false
   override val isolationMode = IsolationMode.SingleInstance
 
-  val mysqlContainer = MySQLContainer<Nothing>("mysql:8.0.26").apply {
-    withDatabaseName("samplestore")
-    withUsername("root")
-    withPassword("12345")
-  }
 
   @ExperimentalKotest
   override var testCoroutineDispatcher = true
@@ -31,11 +26,10 @@ object ProjectConfig : AbstractProjectConfig() {
   override fun extensions() = listOf(SpringExtension)
 
   override suspend fun beforeProject() {
-    mysqlContainer.portBindings.add("3366:3306")
-    mysqlContainer.start()
+
   }
+
   override suspend fun afterProject() {
     // clearAllMocks()
-    mysqlContainer.stop()
   }
 }
