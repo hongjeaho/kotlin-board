@@ -32,15 +32,7 @@ class BoardController(
   }
 
   @GetMapping("/{uuid}")
-  fun detail(@PathVariable("uuid") uuid: String) = BoardResponse(
-    uuid = UUID.randomUUID().toString(),
-    title = "test",
-    content = "content test",
-    createdBy = "관리자",
-    createdTime = LocalDateTime.now(),
-    updatedBy = "관리자",
-    updatedTime = LocalDateTime.now()
-  )
+  fun detail(@PathVariable("uuid") uuid: String) = boardService.findById(uuid)
 
   @PostMapping
   fun save(@RequestBody boardRequest: BoardRequest): BoardResponse {
@@ -51,15 +43,7 @@ class BoardController(
   fun update(
     @PathVariable("uuid") uuid: String,
     @RequestBody boardRequest: BoardRequest,
-  ) = BoardResponse(
-    uuid = UUID.randomUUID().toString(),
-    title = "test",
-    content = "content test",
-    createdBy = "관리자",
-    createdTime = LocalDateTime.now(),
-    updatedBy = "관리자",
-    updatedTime = LocalDateTime.now()
-  )
+  ) = boardService.update(uuid, boardRequest)
 
   @DeleteMapping("/{uuid}")
   fun delete(@PathVariable("uuid") uuid: String) = uuid
