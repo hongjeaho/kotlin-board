@@ -1,6 +1,8 @@
 package com.example.border.service.board
 
+import com.example.border.common.exception.DeletedBoardException
 import com.example.border.common.exception.NotFoundBoardException
+import com.example.border.common.exception.UpdatedBoardException
 import com.example.border.common.extension.ifFalse
 import com.example.border.config.CustomTransactional
 import com.example.border.dto.board.BoardRequest
@@ -33,7 +35,7 @@ class BoardService(
   }
 
   fun update(uuid: String, boardRequest: BoardRequest): BoardResponse {
-    val board = boardRepository.findByIdOrNull(uuid) ?: throw NotFoundBoardException("수정 가능한 게시물이 없습니다.")
+    val board = boardRepository.findByIdOrNull(uuid) ?: throw UpdatedBoardException("수정 가능한 게시물이 없습니다.")
     board.update(boardRequest)
 
     boardRepository.save(board).let {
@@ -43,7 +45,7 @@ class BoardService(
 
   fun delete(uuid: String) {
     boardRepository.existsByUuid(uuid)
-      .ifFalse { throw NotFoundBoardException("삭제 가능한 게시물이 없습니다.") }
+      .ifFalse { throw DeletedBoardException("삭제 가능한 게시물이 없습니다.") }
 
     boardRepository.deleteById(uuid)
   }

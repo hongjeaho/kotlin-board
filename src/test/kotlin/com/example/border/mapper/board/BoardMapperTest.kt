@@ -6,7 +6,8 @@ import io.kotest.matchers.shouldBe
 
 class BoardMapperTest : BehaviorSpec({
   given("Board entity to dto") {
-    val entity = Board(title = "타이틀", content = "내용", createdBy = "관리자")
+    val entity = Board(title = "타이틀", content = "내용")
+
     `when`("mapper 생성") {
       val response = BoardMapper.INSTANCE.toBoardResponse(entity)
       then("mapper 검증") {

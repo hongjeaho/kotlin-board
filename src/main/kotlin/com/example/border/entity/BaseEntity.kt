@@ -9,7 +9,7 @@ import org.springframework.data.annotation.Version
 import java.time.LocalDateTime
 import java.util.*
 
-abstract class BaseEntity() {
+abstract class BaseEntity {
   @Id
   var uuid: String = UUID.randomUUID().toString()
     protected set

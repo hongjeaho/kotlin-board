@@ -1,6 +1,8 @@
 package com.example.border.board
 
+import com.example.border.common.exception.DeletedBoardException
 import com.example.border.common.exception.NotFoundBoardException
+import com.example.border.common.exception.UpdatedBoardException
 import com.example.border.dto.board.BoardRequest
 import com.example.border.service.board.BoardService
 import io.kotest.assertions.throwables.shouldThrow
@@ -57,7 +59,7 @@ class BoardServiceTest(
 
     `when`("게시글 수정 실폐 (게시글이 없을 때) ") {
       then("NotFoundBoardException") {
-        val exception = shouldThrow<NotFoundBoardException> {
+        val exception = shouldThrow<UpdatedBoardException> {
           boardService.update(
             UUID.randomUUID().toString(),
             BoardRequest(
@@ -91,7 +93,7 @@ class BoardServiceTest(
     }
 
     `when`("삭제 실폐") {
-      val exception = shouldThrow<NotFoundBoardException> {
+      val exception = shouldThrow<DeletedBoardException> {
         boardService.delete(result.uuid)
       }
       then("삭제 예외 검증") {
