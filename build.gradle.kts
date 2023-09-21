@@ -63,7 +63,8 @@ dependencies {
   testImplementation("org.testcontainers:mysql:1.16.0")
   testImplementation("io.kotest.extensions:kotest-extensions-testcontainers:2.0.2")
 
-  detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.19.0")
+  // https://detekt.dev/docs/intro
+  detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.1")
 }
 
 tasks.withType<KotlinCompile> {
