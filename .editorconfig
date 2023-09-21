@@ -16,9 +16,11 @@ charset = utf-8
 # 4 space indentation
 indent_style = space
 indent_size = 2
+tab_width = 2
 
 max_line_length = 150
 trim_trailing_whitespace = true
 
 [*.{kt,kts}]
 ij_kotlin_allow_trailing_comma = true
+ktlint_standard_import-ordering = disabled
