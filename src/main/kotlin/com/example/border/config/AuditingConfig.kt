@@ -6,7 +6,6 @@ import org.springframework.data.domain.AuditorAware
 import org.springframework.data.jdbc.repository.config.EnableJdbcAuditing
 import java.util.*
 
-
 @EnableJdbcAuditing(auditorAwareRef = "auditorProvider")
 @Configuration
 class AuditingConfig {

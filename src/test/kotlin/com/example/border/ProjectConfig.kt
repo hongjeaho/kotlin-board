@@ -7,7 +7,6 @@ import io.kotest.core.names.DuplicateTestNameMode
 import io.kotest.core.spec.IsolationMode
 import io.kotest.core.test.AssertionMode
 import io.kotest.extensions.spring.SpringExtension
-import org.testcontainers.containers.MySQLContainer
 
 object ProjectConfig : AbstractProjectConfig() {
 
@@ -19,14 +18,12 @@ object ProjectConfig : AbstractProjectConfig() {
   override val failOnIgnoredTests = false
   override val isolationMode = IsolationMode.SingleInstance
 
-
   @ExperimentalKotest
   override var testCoroutineDispatcher = true
 
   override fun extensions() = listOf(SpringExtension)
 
   override suspend fun beforeProject() {
-
   }
 
   override suspend fun afterProject() {

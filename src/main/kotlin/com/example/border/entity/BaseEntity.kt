@@ -28,6 +28,7 @@ abstract class BaseEntity() {
   @LastModifiedDate
   var updatedTime: LocalDateTime? = null
     protected set
+
   @LastModifiedBy
   var updatedBy: String? = null
     protected set
