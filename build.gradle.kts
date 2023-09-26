@@ -62,9 +62,6 @@ dependencies {
   testImplementation("org.flywaydb:flyway-core")
   testImplementation("org.testcontainers:mysql:1.16.0")
   testImplementation("io.kotest.extensions:kotest-extensions-testcontainers:2.0.2")
-
-  // https://detekt.dev/docs/intro
-  detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.1")
 }
 
 tasks.withType<KotlinCompile> {
@@ -109,9 +106,10 @@ tasks.check {
 }
 
 detekt {
+  toolVersion = "1.23.1"
   buildUponDefaultConfig = true
-  allRules = false
-  config.setFrom(files("$rootDir/config/detekt.yml"))
+  debug = true
+  config.setFrom(files("config/detekt.yml"))
 }
 
 flyway {

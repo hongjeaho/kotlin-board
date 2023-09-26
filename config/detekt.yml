@@ -103,5 +103,8 @@ potential-bugs:
   HasPlatformType:
     active: true
 
+formatting:
+  active: false
+
 style:
   active: false
